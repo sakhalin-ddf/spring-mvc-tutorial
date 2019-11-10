@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'org.flywaydb.flyway' version '6.0.8'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    annotationProcessor 'org.hibernate:hibernate-jpamodelgen:5.4.8.Final'
+
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-mustache'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-devtools'
+
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.8'
+    compile group: 'org.flywaydb', name: 'flyway-core', version: '6.0.8'
+
+    implementation 'com.google.guava:guava:28.0-jre'
+
+    testImplementation 'junit:junit:4.12'
+}
+
+def env = new Properties()
+
+file('.env').withInputStream { it -> env.load(it) }
+
+application {
+    mainClassName = 'com.tutorial.App'
+
+    run {
+        environment env
+    }
+}
+
+flyway {
+    url = "jdbc:postgresql://${env.get('DB_HOST')}:${env.get('DB_PORT')}/${env.get('DB_NAME')}"
+    user = env.get('DB_USER')
+    password = env.get('DB_PASS')
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'

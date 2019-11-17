@@ -8,19 +8,15 @@
     <title>Spring Security Page</title>
 </head>
 <body>
-<h1>Registration</h1>
+<h1>Login</h1>
 <p>
-    <a href="/login">Already has a account?</a>
+    <a href="/registration">Has not account yet?</a>
 </p>
-{{#message}}
-    <div>{{message}}</div>
-{{/message}}
-
-<form action="/registration" method="post">
-    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+<form action="/login" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
     <div>
-        <label for="auth-login-input">Логин</label>
-        <input id="auth-login-input" type="text" name="login" required>
+        <label for="auth-username-input">Логин</label>
+        <input id="auth-username-input" type="text" name="username" required>
     </div>
     <div>
         <label for="auth-password-input">Пароль</label>

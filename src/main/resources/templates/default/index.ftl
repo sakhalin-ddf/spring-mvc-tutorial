@@ -9,6 +9,8 @@
 </head>
 <body>
 <p>Hello user</p>
+<p>It is FTL file</p>
 <p><a href="/message">Go to the messages</a></p>
+<p>Какой то русский текст</p>
 </body>
 </html>

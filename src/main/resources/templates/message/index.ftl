@@ -1,3 +1,4 @@
+<#ftl output_format="HTML">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,14 +12,14 @@
 <div>
     <div>
         <form action="/login" method="post">
-            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
             <button type="submit">Выход</button>
         </form>
     </div>
 
     <div>
         <form action="/message" method="post">
-            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
             <input type="text" name="text" required placeholder="Введите текст">
             <input type="text" name="tag" placeholder="Тэг">
             <button type="submit">Добавить</button>
@@ -30,23 +31,20 @@
             <input type="text"
                    name="tag"
                    placeholder="Введите тэг"
-                   value="{{#tag}}{{tag}}{{/tag}}">
+                   value="${tag}">
 
             <button type="submit">Фильтровать</button>
         </form>
     </div>
 
-    {{#messages}}
+    <#list messages as message>
         <p>
-            <b>{{ id }}</b>
-            <span>{{ text }}</span>
-            {{#tag}}
-                <i>{{ tag }}</i>
-            {{/tag}}
-            <span style="color: red;">{{ createdAt }}</span>
-            <strong>{{ author.login }}</strong>
+            <b>${ message.id }</b>
+            <span>${ message.text }</span>
+            <span style="color: red;">${ message.createdAt }</span>
+            <strong>${ message.author.login }</strong>
         </p>
-    {{/messages}}
+    </#list>
 </div>
 </body>
 </html>
